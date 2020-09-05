@@ -1,9 +1,7 @@
+dist: trusty
 sudo: required
 services:
     - docker
-
-addons:
-    chrome: stable
 
 before_install:
     - docker build -t tejozarkar/docker-angular -f Dockerfile.dev . 
