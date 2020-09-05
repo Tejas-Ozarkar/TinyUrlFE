@@ -1,17 +1,23 @@
-dist: xenial
 sudo: required
 services:
     - docker
-    - xvfb
-
-addons:
-    chrome: stable
 
 before_install:
-    - export CHROME_BIN=chromium-browser
-    - export DISPLAY=:99.0
-    - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
     - docker build -t tejozarkar/docker-angular -f Dockerfile.dev . 
 
 script:
-    - docker run -e CI=true -p 80:3000 tejozarkar/docker-angular npm run test
+    - docker run -e CI=true -p 80:3000 tejozarkar/docker-angular npm run lint
+
+
+deploy:
+    provider: elasticbeanstalk
+    region: "ap-south-1"
+    app: "tiny-frontend"
+    env: "TinyFrontend-env"
+    bucket_name: "elasticbeanstalk-ap-south-1-509006680370"
+    bucket_path: "tiny-frontend"
+    edge: true
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
