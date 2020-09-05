@@ -12,10 +12,10 @@ script:
 deploy:
     provider: elasticbeanstalk
     region: "ap-south-1"
-    app: "tiny-frontend"
-    env: "TinyFrontend-env"
+    app: "dockertiny"
+    env: "Dockertiny-env"
     bucket_name: "elasticbeanstalk-ap-south-1-509006680370"
-    bucket_path: "tiny-frontend"
+    bucket_path: "dockertiny"
     edge: true
     on:
         branch: master
